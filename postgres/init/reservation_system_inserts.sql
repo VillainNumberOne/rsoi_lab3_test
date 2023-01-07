@@ -1,0 +1,1 @@
+insert into reservation (reservation_uid, username, book_uid, library_uid, status, start_date, till_date) values (gen_random_uuid(), 'ldraper1', 'f7cdc58f-2caf-4b15-9727-f89dcc629b27', '83575e12-7ce0-48ee-9931-51919ff3c9ee', 'RENTED', '2022-11-20', '2022-12-20');

@@ -1,0 +1,86 @@
+version: "3"
+services:
+  postgres:
+    image: library/postgres:13
+    container_name: postgres
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: postgres
+    volumes:
+      # - db-data:/var/lib/postgresql/data
+      - ./postgres/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    networks:
+      - services_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+# TODO добавить сервисы
+
+  librarysystem:
+    build:
+      dockerfile: Dockerfile
+      context: library_system/library_system/
+    ports:
+      - "8060:8060"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - services_network
+
+  ratingsystem:
+    build:
+      dockerfile: Dockerfile
+      context: library_system/rating_system/
+    ports:
+      - "8050:8050"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - services_network
+
+  reservationsystem:
+    build:
+      dockerfile: Dockerfile
+      context: library_system/reservation_system/
+    ports:
+      - "8070:8070"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - services_network
+
+  gateway:
+    build:
+      dockerfile: Dockerfile
+      context: library_system/gateway/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - librarysystem
+      - reservationsystem
+      - ratingsystem
+    networks:
+      - services_network
+
+networks: 
+  services_network:
+    driver : bridge
+
+volumes:
+  db-data:

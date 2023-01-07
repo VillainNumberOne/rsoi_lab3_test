@@ -1,0 +1,16 @@
+insert into rating (id, username, stars) values ('0', 'ldraper1', '59');
+insert into rating (id, username, stars) values ('1', 'dreayd', '72');
+insert into rating (id, username, stars) values ('2', 'kmalimoe2', '42');
+insert into rating (id, username, stars) values ('3', 'mfrancillob', '34');
+insert into rating (id, username, stars) values ('4', 'jfreezorc', '83');
+insert into rating (id, username, stars) values ('5', 'mlongcake4', '92');
+insert into rating (id, username, stars) values ('6', 'elabastida8', '64');
+insert into rating (id, username, stars) values ('7', 'mvgorshkoff', '16');
+insert into rating (id, username, stars) values ('8', 'tledura', '20');
+insert into rating (id, username, stars) values ('9', 'itongs5', '52');
+insert into rating (id, username, stars) values ('10', 'joubridge6', '44');
+insert into rating (id, username, stars) values ('11', 'mjeal0', '95');
+insert into rating (id, username, stars) values ('12', 'bnorthcliffe9', '77');
+insert into rating (id, username, stars) values ('13', 'apettiward7', '10');
+insert into rating (id, username, stars) values ('14', 'etenniswood3', '60');
+insert into rating (id, username, stars) values ('15', 'Test Max', '75');
