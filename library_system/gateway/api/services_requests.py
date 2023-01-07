@@ -3,20 +3,42 @@ import json
 from datetime import datetime
 from api.simple_circuit import Circuit
 from api.simple_queue import services_queue
-from api.circuits import (
-    get_city_libraries_circuit,
-    get_library_books_circuit,
-    get_user_rating_circuit,
-    get_libraries_books_info_circuit,
-    get_reservations_circuit,
-    library_rating_circuit,
-    make_reservation_library_circuit
-)
+from api.circuits import *
+# from api.circuits import (
+#     get_city_libraries_circuit,
+#     get_library_books_circuit,
+#     get_user_rating_circuit,
+#     get_libraries_books_info_circuit,
+#     get_reservations_circuit,
+#     library_rating_circuit,
+#     make_reservation_library_circuit
+# )
 
 LIBRARY_SYSTEM = "http://librarysystem:8060"
 RATING_SYSTEM = "http://ratingsystem:8050"
 RESERVATION_SYSTEM = "http://reservationsystem:8070"
 
+
+get_city_libraries_circuit = Circuit(
+    get_city_libraries_request, get_city_libraries_fallback, threshold=2, expected_exception=ConnectionError)
+
+get_library_books_circuit = Circuit(
+    get_library_books_request, get_library_books_fallback, threshold=2, expected_exception=ConnectionError)
+
+get_user_rating_circuit = Circuit(
+    get_user_rating_request, get_user_rating_fallback, threshold=2, expected_exception=ConnectionError)
+
+get_libraries_books_info_circuit = Circuit(
+    get_libraries_books_info_request, get_libraries_books_info_fallback, threshold=2, expected_exception=ConnectionError)
+
+get_reservations_circuit = Circuit(
+    get_reservations_request, get_reservations_fallback, threshold=2, expected_exception=ConnectionError)
+
+library_rating_circuit = Circuit(
+    library_rating_health, library_rating_fallback, threshold=2, expected_exception=ConnectionError)
+
+make_reservation_library_circuit = Circuit(
+    make_reservation_library_service_request, make_reservation_library_service_fallback, threshold=2, expected_exception=ConnectionError)
 
 #### GET CITY LIBRARIES #####################################################
 

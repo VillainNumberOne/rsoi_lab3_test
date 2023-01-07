@@ -1,7 +1,7 @@
 import time
 
 class Circuit():
-    def __init__(self, f, fallback = None, threshold=5, delay=10, expected_exception=Exception):
+    def __init__(self, f, fallback = None, threshold=5, delay=0.1, expected_exception=Exception):
         self.states = ["open", "closed", "halfopen"]
 
         self.f = f
